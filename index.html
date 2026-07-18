@@ -467,22 +467,20 @@
             </ul>
           </div>
           <!--
-            Formular-Backend: FormSubmit.co (kein Account nötig).
-            WICHTIG vor dem Livegang: Platzhalter-Adresse unten durch deine echte
-            E-Mail-Adresse ersetzen. Beim allerersten Absenden schickt FormSubmit
-            dir eine Bestätigungs-E-Mail zur Aktivierung — einmalig bestätigen,
-            danach kommen alle Anfragen normal per Mail an.
+            Formular-Backend: Web3Forms (kein Account/Passwort nötig, nur Access Key).
+            Anfragen gehen an das Postfach, das beim Erstellen des Access Keys
+            unter web3forms.com hinterlegt wurde (kontakt@plenzdorf-it.de).
           -->
           <form
             class="contact__form"
             id="contactForm"
-            action="https://formsubmit.co/ajax/kontakt@plenzdorf-it.de"
+            action="https://api.web3forms.com/submit"
             method="POST"
             novalidate
           >
-            <input type="hidden" name="_subject" value="Neue Projektanfrage über plenzdorf-it.de">
-            <input type="hidden" name="_template" value="table">
-            <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
+            <input type="hidden" name="access_key" value="a27f4849-b00e-4e79-88ea-cc37519ec38f">
+            <input type="hidden" name="subject" value="Neue Projektanfrage über plenzdorf-it.de">
+            <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off">
             <div class="form__row">
               <div class="form__field">
                 <label for="name">Name *</label>
@@ -494,8 +492,8 @@
               </div>
             </div>
             <div class="form__field">
-              <label for="subject">Thema</label>
-              <select id="subject" name="subject">
+              <label for="topic">Thema</label>
+              <select id="topic" name="topic">
                 <option>Testautomatisierung</option>
                 <option>Testmanagement &amp; Strategie</option>
                 <option>API- &amp; Schnittstellentests</option>

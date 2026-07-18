@@ -65,9 +65,8 @@ const countObserver = new IntersectionObserver(
 document.querySelectorAll('.count').forEach((el) => countObserver.observe(el));
 
 // ===== Kontaktformular =====
-// Sendet per AJAX an FormSubmit.co (siehe action-Attribut im Formular).
-// Beim allerersten echten Absenden verschickt FormSubmit eine Bestätigungs-Mail
-// an die Zieladresse — dort einmalig aktivieren, danach läuft es automatisch.
+// Sendet per AJAX an Web3Forms (siehe action-Attribut im Formular).
+// Antwortet immer mit JSON inkl. "success"-Feld — auch im Fehlerfall.
 const form = document.getElementById('contactForm');
 const success = document.getElementById('formSuccess');
 const errorMsg = document.getElementById('formError');
@@ -93,7 +92,9 @@ form.addEventListener('submit', async (e) => {
       body: new FormData(form),
     });
 
-    if (!response.ok) throw new Error(`Request failed: ${response.status}`);
+    const data = await response.json().catch(() => null);
+    const ok = response.ok && data && data.success !== false;
+    if (!ok) throw new Error(data && data.message ? data.message : `Request failed: ${response.status}`);
 
     success.hidden = false;
     form.reset();
